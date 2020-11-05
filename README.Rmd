@@ -103,6 +103,7 @@ ggpolygon(iris, "Sepal.Length", "Petal.Length")
 
 ```r
 devtools::test()
+devtools::build_readme()
 devtools::document()
 devtools::build_site()
 ```
