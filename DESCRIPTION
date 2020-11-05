@@ -7,12 +7,15 @@ Maintainer: Sebastian Paez <jpaezpae@purdue.edu>
 Description: This is intended to contain some utility functions to make nicer 
     the analysis of flow data using base data frames.
 License: Apache 2.0
+URL: https://jspaezp.github.io/flowhelperrr/index.html
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
 Imports: 
-    flowCore
+    flowCore,
+    dplyr,
+    hexbin
 Depends:
     shiny,
     miniUI

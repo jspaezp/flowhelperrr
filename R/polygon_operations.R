@@ -49,6 +49,7 @@ is_point_in_path <- function(x, y, poly) {
 
 is_point_in_path <- Vectorize(is_point_in_path, vectorize.args = c("x", "y"))
 
+
 is_point_df_in_path <- function(point_df, poly_df) {
 
     stopifnot(all(colnames(poly_df)[1:2] %in% colnames(point_df)))
