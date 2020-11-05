@@ -18,37 +18,92 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of flowhelperrr is to ...
+The goal of flowhelperrr is to help you do flow cytometry analysis on R using
+data frames
 
 ## Installation
 
-You can install the released version of flowhelperrr from [CRAN](https://CRAN.R-project.org) with:
-
 ``` r
-install.packages("flowhelperrr")
+devtools::install_github("jspaezp/flowhelperrr")
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(flowhelperrr)
+library(ggplot2)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### Operations using Polygons
 
-```{r cars}
-summary(cars)
+Gates can be defined as polygons in a data frame. Such data frames can be used
+to check what points are inside such polygons.
+
+```{r}
+poly_selection <- data.frame(
+    Petal.Length = c(2,4,6),
+    Sepal.Width = c(2,4,2))
+
+is_point_in_path(
+    iris$Petal.Length,
+    iris$Sepal.Width,
+    poly_selection)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+Since it is vectorized it can be used as well in NSE
 
-You can also embed plots, for example:
+```{r}
+iris2 <- dplyr::mutate(
+    iris,
+    point_in_poly = is_point_in_path(
+        Petal.Length,
+        Sepal.Width,
+        poly_selection))
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+head(iris2)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, y = Sepal.Width,
+                 colour = is_point_in_path(Petal.Length, Sepal.Width, poly_selection))) +
+    geom_point() +
+    geom_polygon(colour = "gray", alpha = 0.3, data = poly_selection) +
+    theme(legend.position = "bottom")
+```
+
+### Shiny Gadgets
+
+Gadgets are provided to help with the things that are hard to do exclusively
+on the command line (such as making an octagonal gate ...)
+
+*ggpolygon*
+
+This gadget allows you to click to form a polygon and returns a data frame
+that defines such polygon
+
+```r
+ggpolygon(iris, "Sepal.Length", "Petal.Length")
+```
+
+![ggpolygon](man/figures/ggpolygon.png)
+
+    To generate the data.frame, type 
+    'data.frame(c(5.29656915230736, 5.62182752573929, 6.26495203684332, 7.28508057169799, 6.64195606059396), c(4.65156384997072, 3.41011046538746, 3.74383449350124, 4.9852878780845, 6.50706944628333))'
+      Sepal.Length Petal.Length
+    1     5.296569     4.651564
+    2     5.621828     3.410110
+    3     6.264952     3.743834
+    4     7.285081     4.985288
+    5     6.641956     6.507069
+
+## Things to run before commiting
+
+```r
+devtools::test()
+devtools::document()
+devtools::build_site()
+```
+

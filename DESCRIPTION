@@ -1,18 +1,20 @@
 Package: flowhelperrr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Helps you analyze flow cytometry data using data frames
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Sebastian Paez
+Maintainer: Sebastian Paez <jpaezpae@purdue.edu>
+Description: This is intended to contain some utility functions to make nicer 
+    the analysis of flow data using base data frames.
+License: Apache 2.0
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
 Imports: 
-    shiny,
-    miniUI,
     flowCore
+Depends:
+    shiny,
+    miniUI
 biocViews:
+RoxygenNote: 7.1.1

@@ -12,6 +12,16 @@
 #' @export
 #'
 #' @examples
+#' poly_selection <- data.frame(
+#'     Petal.Length = c(2,4,6),
+#'     Sepal.Width = c(2,4,2))
+#'
+#' dplyr::mutate(
+#'     iris,
+#'     point_in_poly = is_point_in_path(
+#'         Petal.Length,
+#'         Sepal.Width,
+#'         poly_selection))
 is_point_in_path <- function(x, y, poly) {
     if (is.data.frame(poly)) {
         poly <- split(poly, seq_len(nrow(poly)))
@@ -39,17 +49,14 @@ is_point_in_path <- function(x, y, poly) {
 
 is_point_in_path <- Vectorize(is_point_in_path, vectorize.args = c("x", "y"))
 
-test_point_in_path <- function() {
-    sample_square <- list(c(0,0), c(0,1), c(1,1), c(1,0))
+is_point_df_in_path <- function(point_df, poly_df) {
 
-    is_point_in_path(0.5, 0.5, sample_square)
-    is_point_in_path(2, 2, sample_square)
-    is_point_in_path(-1, 2, sample_square)
-    is_point_in_path(1, -2, sample_square)
+    stopifnot(all(colnames(poly_df)[1:2] %in% colnames(point_df)))
+    x_name <- colnames(poly_df)[[1]]
+    y_name <- colnames(poly_df)[[2]]
 
-    is_point_in_path(c(0.5, 2, -1, 1, 0.8), c(0.5, 2, 2, -2, 0.1), sample_square)
-
-    sample_square_df <- data.frame(x = c(0,0,1,1), y = c(0,1,1,0))
-    is_point_in_path(c(0.5, 2, -1, 1, 0.8), c(0.5, 2, 2, -2, 0.1), sample_square_df)
-
+    is_point_in_path(
+        x = point_df[[x_name]],
+        y = point_df[[y_name]],
+        poly_df)
 }
