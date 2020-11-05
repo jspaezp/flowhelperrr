@@ -76,7 +76,7 @@
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">flowhelperrr</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jspaezp.github.io/flowhelperrr/index.html">flowhelperrr</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: shiny</span>
 <span class="co">#&gt; Loading required package: miniUI</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggplot2</span><span class="op">)</span>
@@ -109,7 +109,7 @@
 <span class="co">#&gt; [145] FALSE FALSE  TRUE FALSE FALSE FALSE</span></pre></div>
 <p>Since it is vectorized it can be used as well in NSE</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">iris2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">mutate</span><span class="op">(</span>
+<span class="va">iris2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     <span class="va">iris</span>,
     point_in_poly <span class="op">=</span> <span class="fu"><a href="reference/is_point_in_path.html">is_point_in_path</a></span><span class="op">(</span>
         <span class="va">Petal.Length</span>,
