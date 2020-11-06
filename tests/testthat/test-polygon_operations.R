@@ -42,6 +42,26 @@ test_that("Points in polygons are detected usiong a DF defining polygon", {
 
 })
 
+
+test_that("Points in polygons work on NSE", {
+    sample_square_df <- data.frame(x = c(0,0,1,1), y = c(0,1,1,0))
+    sample_points <- data.frame(x = c(0.5, 2, -1, 1, 0.8),
+                                y = c(0.5, 2, 2, -2, 0.1))
+
+    samp_points_out <- dplyr::mutate(
+        sample_points,
+        in_path = is_point_in_path(
+            x,
+            y,
+            sample_square_df))
+
+    expect_equal(
+        samp_points_out$in_path,
+        c(TRUE, FALSE, FALSE, FALSE, TRUE))
+
+
+})
+
 test_that("is_point_df_in_path works", {
     sample_square_df <- data.frame(x = c(0,0,1,1), y = c(0,1,1,0))
     testing_points <- data.frame(x = c(0.5, 2, -1, 1, 0.8),

@@ -31,9 +31,18 @@ ggpolygon <- function(data, xvar, yvar) {
     server <- function(input, output, session) {
         points <- data.frame("x" = NULL, "y" = NULL)
 
+        geom_data_points <- switch(
+            EXPR = as.character((ncol(data) > 1000) + (ncol(data) > 10000)),
+            "0" = function() ggplot2::geom_point(shape = 16, size = 1),
+            "1" = function() ggplot2::geom_point(shape = "."),
+            "2" = function() ggplot2::geom_hex()
+        )
+
         g <-
             ggplot2::ggplot(data, ggplot2::aes_string(xvar, yvar)) +
-            ggplot2::geom_point()
+            geom_data_points() +
+            ggplot2::theme_bw() +
+            ggplot2::scale_fill_viridis_c(trans = "sqrt")
 
         # Render the plot
         output$plot <- shiny::renderPlot({

@@ -15,7 +15,9 @@ Suggests:
 Imports: 
     flowCore,
     dplyr,
-    hexbin
+    hexbin,
+    tibble,
+    purrr
 Depends:
     shiny,
     miniUI

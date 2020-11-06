@@ -23,31 +23,32 @@
 #'         Sepal.Width,
 #'         poly_selection))
 is_point_in_path <- function(x, y, poly) {
+    stopifnot(length(x) == length(y))
+
     if (is.data.frame(poly)) {
         poly <- split(poly, seq_len(nrow(poly)))
+        poly <- lapply(poly, unlist, use.names = FALSE)
     }
 
     j <- length(poly)
-    c <- FALSE
+    c <- rep(FALSE, length(x))
 
     for (i in seq_len(j)) {
         crosses_y <- (poly[[i]][2] > y) != (poly[[j]][2] > y)
+
         dx <- poly[[j]][1] - poly[[i]][1]
         dy <- poly[[j]][2] - poly[[i]][2]
 
         crosses_x <- (x < poly[[i]][1] + (dx) * (y - poly[[i]][2]) / (dy))
-        if (crosses_y & crosses_x) {
-            c = !c
-        }
+        crosses_both <- crosses_y & crosses_x
 
+        c[crosses_both] <- !c[crosses_both]
         j <- i
     }
 
 
     return(c)
 }
-
-is_point_in_path <- Vectorize(is_point_in_path, vectorize.args = c("x", "y"))
 
 
 is_point_df_in_path <- function(point_df, poly_df) {

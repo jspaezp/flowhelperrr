@@ -18,8 +18,13 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of flowhelperrr is to help you do flow cytometry analysis on R using
-data frames
+The goal of flowhelperrr is to help you (me) do flow cytometry analysis in
+R using data frames.
+
+The main reason this package exists was that I kept re-writting many functions
+in many of the analyses I did of my flow cytometry data. Therefore, this package
+is not mean to become available through cran or particularly light on 
+dependencies/imports.
 
 ## Installation
 
