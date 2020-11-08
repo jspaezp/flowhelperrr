@@ -7,6 +7,8 @@
 #' @param poly a list of numeric vectors defining the polygon
 #'             list(c(x, y), c(x, y), ...) or a data.frame
 #'             data.frame(x = c(0,0,1), y = c(0,1,1))
+#' @param poly_df a data.frame defining a polygon, column are expected
+#' @param point_df a data.frame defining the points to check, column names are expected
 #'
 #' @return
 #' @export
@@ -55,7 +57,8 @@ is_point_in_path <- function(x, y, poly) {
 
 
 #' @export
-#' @describeIn is_point_in_path
+#' @describeIn is_point_in_path Find wether points are inside a polygon, defining
+#'             both as data frames with matching names
 is_point_df_in_path <- function(point_df, poly_df) {
   stopifnot(all(colnames(poly_df)[1:2] %in% colnames(point_df)))
   x_name <- colnames(poly_df)[[1]]

@@ -6,7 +6,7 @@ Author: Sebastian Paez
 Maintainer: Sebastian Paez <jpaezpae@purdue.edu>
 Description: This is intended to contain some utility functions to make nicer 
     the analysis of flow data using base data frames.
-License: Apache 2.0
+License: MIT + file LICENSE
 URL: https://jspaezp.github.io/flowhelperrr/index.html
 Encoding: UTF-8
 LazyData: true
@@ -16,11 +16,12 @@ Suggests:
 Imports: 
     flowCore,
     dplyr,
+    ggplot2,
     hexbin,
     tibble,
+    shiny,
+    miniUI,
     purrr
 Depends:
-    shiny,
-    miniUI
 biocViews:
 RoxygenNote: 7.1.1

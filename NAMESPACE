@@ -2,5 +2,7 @@
 
 export(concat_exprs)
 export(ggpolygon)
+export(is_point_df_in_path)
 export(is_point_in_path)
 export(read.multi.FCS)
+export(scale_polygon)

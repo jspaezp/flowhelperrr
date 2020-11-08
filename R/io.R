@@ -2,14 +2,14 @@
 #' Read FCS files with multiple experiments in them
 #'
 #' @param filename name of the file to be read
-#' @param ...
+#' @param ... additional arguments passed to flowCore::read.FCS
 #'
 #' @return a list of flow frames and warning of
 #'         which ones were not read successfully
 #' @export
 read.multi.FCS <- function(filename, ...) {
   warn_message <- tryCatch(
-    flowCore::read.FCS(filename),
+    flowCore::read.FCS(filename, ...),
     warning = function(w) {
       return(w$message)
     }
@@ -20,7 +20,7 @@ read.multi.FCS <- function(filename, ...) {
   # TODO decide if I want to handle some common warning automatically ...
   data_list <- purrr::map(
     seq_len(num_samples),
-    purrr::safely(~ read.FCS(filename, dataset = .x))
+    purrr::safely(~ read.FCS(filename, dataset = .x, ...))
   )
 
   failed_datasets <- purrr::map_lgl(data_list, ~ !is.null(.x$error))

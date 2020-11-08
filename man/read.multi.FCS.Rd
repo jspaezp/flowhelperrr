@@ -9,7 +9,7 @@ read.multi.FCS(filename, ...)
 \arguments{
 \item{filename}{name of the file to be read}
 
-\item{...}{}
+\item{...}{additional arguments passed to flowCore::read.FCS}
 }
 \value{
 a list of flow frames and warning of

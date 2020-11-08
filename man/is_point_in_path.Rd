@@ -2,9 +2,12 @@
 % Please edit documentation in R/polygon_operations.R
 \name{is_point_in_path}
 \alias{is_point_in_path}
+\alias{is_point_df_in_path}
 \title{Check if a point is contained in a polygon}
 \usage{
 is_point_in_path(x, y, poly)
+
+is_point_df_in_path(point_df, poly_df)
 }
 \arguments{
 \item{x}{The x coordinates of point.}
@@ -14,6 +17,10 @@ is_point_in_path(x, y, poly)
 \item{poly}{a list of numeric vectors defining the polygon
 list(c(x, y), c(x, y), ...) or a data.frame
 data.frame(x = c(0,0,1), y = c(0,1,1))}
+
+\item{point_df}{a data.frame defining the points to check, column names are expected}
+
+\item{poly_df}{a data.frame defining a polygon, column are expected}
 }
 \value{
 
@@ -21,15 +28,24 @@ data.frame(x = c(0,0,1), y = c(0,1,1))}
 \description{
 based on: https://en.wikipedia.org/wiki/Even%E2%80%93odd_rule
 }
+\section{Functions}{
+\itemize{
+\item \code{is_point_df_in_path}: Find wether points are inside a polygon, defining
+both as data frames with matching names
+}}
+
 \examples{
 poly_selection <- data.frame(
-    Petal.Length = c(2,4,6),
-    Sepal.Width = c(2,4,2))
+  Petal.Length = c(2, 4, 6),
+  Sepal.Width = c(2, 4, 2)
+)
 
 dplyr::mutate(
-    iris,
-    point_in_poly = is_point_in_path(
-        Petal.Length,
-        Sepal.Width,
-        poly_selection))
+  iris,
+  point_in_poly = is_point_in_path(
+    Petal.Length,
+    Sepal.Width,
+    poly_selection
+  )
+)
 }
