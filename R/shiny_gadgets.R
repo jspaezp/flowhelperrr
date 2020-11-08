@@ -32,7 +32,7 @@ ggpolygon <- function(data, xvar, yvar) {
         points <- data.frame("x" = NULL, "y" = NULL)
 
         geom_data_points <- switch(
-            EXPR = as.character((ncol(data) > 1000) + (ncol(data) > 10000)),
+            EXPR = as.character((nrow(data) > 1000) + (nrow(data) > 10000)),
             "0" = function() ggplot2::geom_point(shape = 16, size = 1),
             "1" = function() ggplot2::geom_point(shape = "."),
             "2" = function() ggplot2::geom_hex()

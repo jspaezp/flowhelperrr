@@ -51,6 +51,8 @@ is_point_in_path <- function(x, y, poly) {
 }
 
 
+#' @export
+#' @describeIn is_point_in_path
 is_point_df_in_path <- function(point_df, poly_df) {
 
     stopifnot(all(colnames(poly_df)[1:2] %in% colnames(point_df)))
@@ -62,3 +64,40 @@ is_point_df_in_path <- function(point_df, poly_df) {
         y = point_df[[y_name]],
         poly_df)
 }
+
+
+#' Scale polygons around their center
+#'
+#' @param poly a data frame defining a polygon (x and y coordinates)
+#' @param scaling a numeric vector that defines the scaling factor
+#'
+#' @return data.frame defining a scaled polygon
+#' @export
+#'
+#' @examples
+#' scale_polygon(data.frame(x = c(1,2,3), y = c(1,2,1)), 2)
+#'
+#' poly <- data.frame(x = c(1,1,0,0), y = c(1,0,0,1))
+#' library(ggplot2)
+#' ggplot(data = NULL, aes(x = x, y = y)) +
+#'     geom_polygon(data = poly, fill = "black") +
+#'     geom_polygon(data = scale_polygon(poly, 0.5), fill = "gray") +
+#'     geom_polygon(data = scale_polygon(poly, 2), alpha = 0.2, fill = "red") +
+#'     geom_polygon(data = scale_polygon(poly, c(1,3)), alpha = 0.2, fill = "green") +
+#'     geom_polygon(data = scale_polygon(poly, c(3,1)), alpha = 0.2, fill = "blue")
+scale_polygon <- function(poly, scaling) {
+   stopifnot(ncol(poly) == 2)
+    # translate to origin (subtract the scaling center)
+    scale_center <- colMeans(poly)
+   scaling_poly <- as.matrix(poly)
+    scaling_poly <- t(scaling_poly) - scale_center
+
+    # scale by the correct amount (multiply by a constant)
+    scaling_poly <- scaling_poly * scaling
+
+    # translate from origin (add the scaling center)
+    scaling_poly <- scaling_poly <- t(scaling_poly + scale_center)
+
+    return(as.data.frame(scaling_poly))
+}
+
