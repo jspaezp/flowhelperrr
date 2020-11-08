@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # flowhelperrr
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/jspaezp/flowhelperrr/branch/master/graph/badge.svg)](https://codecov.io/gh/jspaezp/flowhelperrr?branch=master)
+[![R build status](https://github.com/jspaezp/flowhelperrr/workflows/R-CMD-check/badge.svg)](https://github.com/jspaezp/flowhelperrr/actions)
 <!-- badges: end -->
 
 The goal of flowhelperrr is to help you (me) do flow cytometry analysis in
